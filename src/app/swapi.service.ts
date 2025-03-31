@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
@@ -6,6 +6,8 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class SwapiService {
+  httpClient = inject(HttpClient)
+
   private baseUrl = 'https://swapi.dev/api';
 
   constructor(private http: HttpClient) {}
@@ -15,14 +17,25 @@ export class SwapiService {
       map(res => res.results) // comme avec "drinks" dans le cocktailAPI
     );
   }
-
   getFilms(): Observable<any[]> {
-    return this.http.get<any>(`${this.baseUrl}/films/`).pipe(map(res => res.results));
+    return this.http.get<any>(`${this.baseUrl}/films/`).pipe(
+      map(res => res.results));
   }
-
   getPlanets(): Observable<any[]> {
-    return this.http.get<any>(`${this.baseUrl}/planets/`).pipe(map(res => res.results));
+    return this.http.get<any>(`${this.baseUrl}/planets/`).pipe(
+      map(res => res.results));
+  }
+  getSpecies(): Observable<any[]> {
+    return this.http.get<any>(`${this.baseUrl}/species/`).pipe(
+      map(res => res.results));
+
+  }getStarships(): Observable<any[]> {
+    return this.http.get<any>(`${this.baseUrl}/starships/`).pipe(
+      map(res => res.results));
+
+  }getVehicles(): Observable<any[]> {
+    return this.http.get<any>(`${this.baseUrl}/vehicles/`).pipe(
+      map(res => res.results));
   }
 
-  // Ajoute d'autres méthodes si tu veux (species, starships, vehicles)
 }
